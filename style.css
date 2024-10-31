@@ -1,109 +1,54 @@
 body {
-    background-color: rgb(69, 133, 133);
-}
-
-header {
-    display: flex;
-    background-color: #fff;
-    border-radius: 2px;
-    padding: 10px;
-    margin: 40px 30px;
-    justify-content: space-between;
-    align-items: center;
-}
-
-header .logo {
-    display: flex;
-    align-items: end;
-}
-
-header img {
-    width: 60px;
-}
-
-header span {
-    font-size: 30px;
-    margin-left: 10px;
-}
-
-header button {
-    background-color: #4ebe7d;
-    border: 1px solid;
-    padding: 0px 30px;
-    height: 50px;
-    font-size: 18px;
-    color: #fff;
-}
-
-header button:hover {
-    cursor: pointer;
-    border: 2px solid;
-    background-color: #34ca73;
-}
-
-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    height: 80vh;
-    margin-top: 40px;
-}
-
-.tabuleiro {
-    width: 60%;
-    height: 100%;
-    margin-left: 30px;
-    background-color: #000000a6;
-}
-
-.inner1, .inner2 {
-    border: 1px solid;
-    margin: 0 auto;
-}
-
-.inner1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 166.6px;
-    height: 166.6px;
-}
-
-.inner2 {
-    width: 83.3px;
-    height: 83.3px;
-}
-
-aside {
-    width: 40%;
-    height: 100%;
-}
-
-aside .config {
-    background-color: antiquewhite;
-    width: fit-content;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #000;
-}
-
-aside .config form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    background: rgb(35,51,124);
+    background: linear-gradient(0deg, rgba(35,51,124,1) 5%, rgba(14,20,64,1) 51%);
+    height: 100vh;
+    overflow: hidden;
 }
 
-aside .config form input,
-aside .config form label {
+.mainMenu {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    transition: top ease 0.5s;
+    padding: 20px;
+}
+
+.mainMenu:hover {
+    top: -20px;
+}
+
+.logo {
+    margin: 0 auto;
     width: 300px;
+    background-color: bisque;
+    border-radius: 10px;
+    object-fit: contain;
 }
 
-.login {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+
+.buttons {
     width: 500px;
-    height: 500px;
-    background-color: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 40px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.buttons button {
+    width: 100px;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.mainMenu:hover .buttons {
+    opacity: 1;
+    transform: translateY(0);
 }

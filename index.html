@@ -3,45 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
     <title>Trilha Web</title>
 </head>
     <body>
-        <header>
-            <div class="logo">
-                <img src="data:image/png;base64,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">
-                <span>TrilhaWeb</span>
+
+        <div class="mainMenu">
+            <img class= "logo" src="img/TWLogo.png" alt="LogoTrilha">
+            <div class="buttons">
+                <button>Login</button>
+                <button>Autenticar</button>
             </div>
-            <button>Configs</button>
-        </header>  
-        <main>
-            <div class="tabuleiro">
-                <div class="inner1">
-                    <div class="inner2">
-    
-                    </div>                
-                </div>
-            </div>
-            <aside>
-                <div class="ranking">
+        </div>
 
-                </div>
-                <div class="config">
-                    <form action="">
-                        <label for="size">Tamanho Tabuleiro</label>
-                        <input type="number" name="size" id="size">
-
-                        <label for="size">PvP</label>
-                        <input type="number" name="size" id="size">
-                        
-                        <label for="size">FirsToPlay</label>
-                        <input type="number" name="size" id="size">
-
-                        <label for="size">AI Level</label>
-                        <input type="number" name="size" id="size">
-                    </form>
-                </div>
-            </aside>
-        </main>   
     </body>
 </html>
