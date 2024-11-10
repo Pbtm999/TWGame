@@ -159,10 +159,10 @@ class MainPage {
         const mainFooter = document.createElement("footer");
         this.actualExtra;
 
-        this.actualPlayer = 1; // 0 Red, 1 Blue
-        this.againstIA = true;
-        this.IALevel = 1;
-        this.size = 2;
+        this.actualPlayer = 0; // 0 Red, 1 Blue
+        this.againstIA = 0;
+        this.IALevel = 0;
+        this.size = 1;
 
         document.getElementsByTagName('body')[0].appendChild(this.container);
         this.container.style.display = 'none';
@@ -262,7 +262,7 @@ class MainPage {
                 `
                 <p>-Trilha é um jogo onde 2 jogadores tentam fazer com que o outro tenha só 2 peças restantes. O primeiro a conseguir isso, vence. É possível também que o jogo termine em empate. Para o jogo terminar empatado, basta que não existam mais jogadas válidas, ou então, se ambos os jogadores tiverem apenas 3 peças restantes, e em 10 jogadas nenhum deles conseguir eliminar uma peça inimiga, o jogo termina;</p>
                 <br>
-                <p>-O tabuleiro é composto por vários quadrados colocados um dentro do outro, com um limite de (colocar o limite de quadrados aqui) quadrados, e um mínimo de (colocar o mínimo de quadrados aqui) quadrados. Cada um deles tem sempre 8 lugares disponíveis para colocar peças, 1 em cada canto, e 1 no meio de cada lado do quadrado, sinalizados por círculos nessas posições;</p>
+                <p>-O tabuleiro é composto por vários quadrados colocados um dentro do outro, com um limite de 3 quadrados, e um mínimo de 1 quadrado. Cada um deles tem sempre 8 lugares disponíveis para colocar peças, 1 em cada canto, e 1 no meio de cada lado do quadrado, sinalizados por círculos nessas posições;</p>
                 <br>
                 <p>-Os 2 jogadores começam sempre com o mesmo número de peças, que será dependente do número de quadrados escolhidos para jogar. Se o tabuleiro tiver n quadrados, cada jogador terá 3*n peças no início do jogo;</p>
                 <br>
@@ -385,7 +385,33 @@ class Board {
 
         const game = document.createElement("div");
         game.setAttribute("class", "game");
+
+
+        // Calculate number of columns (4 * size + 1)
+        const num = 4 * size + 1;
+
+        // Generate column sizes alternating between 20px and 40px
+        let columnSizes = [];
+        let lineSizes = [];
+        for (let i = 0; i < num; i++) {
+            // Alternate between 20px and 40px
+            if (i % 2 === 0) {
+                columnSizes.push('20px');
+                lineSizes.push('20px');
+            } else {
+                columnSizes.push('40px');
+                lineSizes.push('40px');
+            }
+        }
+
+        // Set the grid template columns
+        game.style.gridTemplateColumns = columnSizes.join(' ');
+        game.style.gridTemplateColumns = lineSizes.join(' ');
         this.middle.appendChild(game);
+
+        for (let i = 0; i < size; i++) {
+            
+        }
 
         const forsake = document.createElement("div");
         forsake.innerHTML = 'Forsake';
@@ -429,8 +455,16 @@ class Board {
 
     }
 
-    play(square, position) {
-        if (this.state[line][collumn]);
+    play(square, position, piece) {
+        if (this.state[square][position] == 'empty') this.state[square][position] = piece;
+        if (this.checkForMoinhos(square, position)) {
+            if (piece == 'red');
+            else;
+        };
+    }
+
+    removePiece(square, position, pieceRemoving) {
+        if (this.state[square][position] == pieceRemoving) this.state[square][position] = 'empty';
     }
 
     showMessage = (messageText, type) => {
@@ -490,7 +524,7 @@ class ConfigPopup {
         const form = document.createElement("form");
 
 
-        const size = new Selector("Tamanho: ", [1, 2, 3], (value) => {boardObj.againstIA = value+1});
+        const size = new Selector("Tamanho: ", [1, 2, 3], (value) => {boardObj.size = value+1});
         const versus = new Selector("Versus: ", ["IA", "PvP"], (value) => {boardObj.againstIA = value});
         const firstToPlay = new Selector("First To Play: ", ["Red", "Blue"], (value) => {boardObj.actualPlayer = value});
         const IALevel = new Selector("IA Level: ", ["Easy", "Mid", "Hard"], (value) => {boardObj.IALevel = value});
