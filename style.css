@@ -242,7 +242,7 @@ body {
     margin: 0;
     color: #fff;
     width: 100%;
-    overflow-y: scroll;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -413,10 +413,11 @@ body {
     padding: 1%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     flex-direction: column;
     border-right: 1px solid #fff;
     border-left: 1px solid #fff;
+
 }
 
 .board .middle .forsake {
@@ -431,25 +432,39 @@ body {
 }
 
 .board .middle .game {
-    width: 50%;
-    height: 50%;
+    width: fit-content;
+    height: fit-content;
     display: grid;
-    grid-template-columns: repeat(6, 50px); /* Adjust cell size */
-    grid-template-rows: repeat(7, 50px);    /* Adjust cell size */
-    gap: 5px;
 }
 
 .cell {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     border: 1px solid #333;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.selected {
+    border: 1px solid gold;
 }
 
 .hrule {
-    width: 55px;
-    height: 10px;
+    width: 100%;
+    height: 5px;
     background-color: #333;
+    margin: 7.5px 0;
+}
+
+.vrule {
+    width: 5px;
+    margin: 0 auto;
+    background-color: #333;
+}
+
+.emptySpace {
+    width: 100%;
 }
 
 .empty {
@@ -471,3 +486,9 @@ body {
     border: 1px solid #000;
 }
 
+.score {
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0 auto;
+    text-shadow: 1px 1px 1px #000;
+}
