@@ -77,7 +77,7 @@ export class LoginPage {
         }
 
         //twserver.alunos.dcc.fc.up.pt
-        fetch(`http://${SERVER_URL}:8008/register`, {
+        fetch(`http://${SERVER_URL}/register`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'

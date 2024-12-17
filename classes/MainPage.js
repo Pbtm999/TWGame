@@ -60,7 +60,7 @@ export class MainPage {
             this.startGame.style.display = 'none';
             if (this.config.PvP) {
                
-                fetch(`http://${SERVER_URL}:8008/join`, {
+                fetch(`http://${SERVER_URL}/join`, {
                     method: 'POST',
                     headers: {
                         'Content-type': 'application/json'
@@ -131,7 +131,7 @@ export class MainPage {
                         header.innerText = `Leaderboard ${btn.innerText}`;
                         if (btn.innerText == "PvP") {
                             
-                            fetch(`http://${SERVER_URL}:8008/ranking`, {
+                            fetch(`http://${SERVER_URL}/ranking`, {
                                 method: 'POST',
                                 headers: {
                                     'Content-type': 'application/json'

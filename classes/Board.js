@@ -4,7 +4,7 @@ import SERVER_URL from "../config.js";
 export class Board {
     constructor(mainPage, username, password, gameId, size) {
 
-        const gameEvent = new EventSource(`http://${SERVER_URL}:8008/update?nick=${username}&game=${gameId}`); //
+        const gameEvent = new EventSource(`http://${SERVER_URL}/update?nick=${username}&game=${gameId}`); //
         gameEvent.onmessage = (event) => {
             const gameData = JSON.parse(event.data);
             if (gameData.board === undefined && Object.prototype.hasOwnProperty.call(gameData, 'winner') && gameData.winner === null) {
@@ -80,7 +80,7 @@ export class Board {
                             if (this.phase != "drop") 
                                 selectionHandle(cell);
     
-                            fetch(`http://${SERVER_URL}:8008/notify`, {
+                            fetch(`http://${SERVER_URL}/notify`, {
                                 method: 'POST',
                                 headers: {
                                     'Content-type': 'application/json'
@@ -208,7 +208,7 @@ export class Board {
             this.bluePiecesContainer = null;
             this.queueWrapper = null;
 
-            fetch(`http://${SERVER_URL}:8008/leave`, {
+            fetch(`http://${SERVER_URL}/leave`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
@@ -243,7 +243,7 @@ export class Board {
     }
 
     forsake = () => {
-        fetch(`http://${SERVER_URL}:8008/leave`, {
+        fetch(`http://${SERVER_URL}/leave`, {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
