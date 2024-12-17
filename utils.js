@@ -8,6 +8,11 @@ export const myAppendChild = (appendTo, element) => {
     }
 }
 
+export const playSound = (sound) => {
+    // Sounds: success / win / failure
+    new Audio(`audios/${sound}.mp3`).play();
+}
+
 export const myCreateElement = (tag, attributes = [], appendTo = null) => {
     // Creates an element of the tag passed as argument
     const element = document.createElement(tag);
@@ -76,12 +81,77 @@ export class Selector {
         if (!this.values || this.values.length === 0) return;
 
         if (this.actualPosition <= -1) 
-            this.actualPosition = this.valuesArray.length-1;
-        if (this.actualPosition >= this.valuesArray.length) 
+            this.actualPosition = this.values.length-1;
+        if (this.actualPosition >= this.values.length) 
             this.actualPosition = 0;
         
-        this.value.innerText = this.valuesArray[this.actualPosition];
+        this.value.innerText = this.values[this.actualPosition];
         this.f(this.actualPosition);
     }
 
+}
+
+export const generateLineSquareNodes = (j, size, game, strI=0, dir=1) => {
+    VerticalSpaceLeft(size-j, game);
+    for (let i = 0; i < 2; i++) {
+        myCreateElement("div", [["class", "cell empty"], ["id", `${size-j}-${strI+(i*dir)}`]], game);
+        for (let ruleSpaces = (2*j)-1; ruleSpaces > 0; ruleSpaces--) {
+            myCreateElement("div", [["class", "hrule"]], game)
+        }
+    }
+    myCreateElement("div", [["class", "cell empty"], ["id", `${size-j}-${strI+(2*dir)}`]], game);
+    VerticalSpaceRight(size-j, game);
+}
+
+export const generateLineSquareVertical = (j, size, game) => {
+    VerticalSpaceLeft(size-j, game);
+    for (let i = 2; i > 0; i--) {
+        if (j == 1 && i == 1) myCreateElement("div", [["class", "emptySpace"]], game);
+        else myCreateElement("div", [["class", "vrule"]], game);
+        for (let ruleSpaces = (2*j)-1; ruleSpaces > 0; ruleSpaces--) {
+            myCreateElement("div", [["class", "emptySpace"]], game);
+        }
+    }
+    myCreateElement("div", [["class", "vrule"]], game);
+    VerticalSpaceRight(size-j, game);
+}
+
+export const VerticalSpaceLeft = (size, game) => {
+    for (let i = size; i > 0; i--) {
+        myCreateElement("div", [["class", "vrule"]], game)
+        myCreateElement("div", [["class", "emptySpace"]], game)
+    }
+}
+
+export const VerticalSpaceRight = (size, game) => {
+    for (let i = size; i > 0; i--) {
+        myCreateElement("div", [["class", "emptySpace"]], game)
+        myCreateElement("div", [["class", "vrule"]], game)
+    }
+}
+
+export const generateBoard = (size, game) => {
+    for (let j = size; j > 0; j--) {
+        generateLineSquareNodes(j, size, game);
+        generateLineSquareVertical(j, size, game);
+    }
+
+    for (let j = size-1; j > 0; j--) {
+        myCreateElement("div", [["class", "cell empty"], ["id", `${size-j-1}-${7}`]], game);
+        myCreateElement("div", [["class", "hrule"]], game)
+    }
+    myCreateElement("div", [["class", "cell empty"], ["id", `${size-1}-${7}`]], game);
+    
+    for (let i = 3; i > 0; i--) myCreateElement("div", [["class", "emptySpace"]], game);
+
+    myCreateElement("div", [["class", "cell empty"], ["id", `${size-1}-${3}`]], game);
+    for (let j = size-1; j > 0; j--) {
+        myCreateElement("div", [["class", "hrule"]], game)
+        myCreateElement("div", [["class", "cell empty"], ["id", `${size-j-1}-${3}`]], game);
+    }
+    
+    for (let j = 1; j <= size; j++) {
+        generateLineSquareVertical(j, size, game);
+        generateLineSquareNodes(j, size, game, 6, -1);
+    }
 }

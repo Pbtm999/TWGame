@@ -1,19 +1,24 @@
 import { addIcon, myCreateElement } from "../utils.js";
 import { ConfigPopup } from "./ConfigPopup.js";
 import { LeaderBoard } from "./LeaderBoard.js";
+import { LoginPage } from "./LoginPage.js";
+import { AIBoard } from "./AIBoard.js";
 import { Board } from "./Board.js";
+import SERVER_URL from "../config.js";
 
 export class MainPage {
-    constructor(username) {
+    constructor(username, password) {
 
-        this.username = username
-        this.actualPlayer = 0; // 0 Red, 1 Blue
-        this.againstIA = 0;
-        this.IALevel = 0;
-        this.size = 1;
-        this.actualExtra = undefined;
+        var actualExtra = undefined;
+        this.config = {
+            size: 1,
+            firstColorToPlay: "Red",
+            playerColor: "Red",
+            PvP: true
+        }
         
         this.container = myCreateElement("div", [["class", "mainPageContainer hidden"], ["style", "display: none;"]], "body");
+        this.username = username;
         
         const header = myCreateElement("header", [], this.container);
         const main = myCreateElement("main", [], this.container);
@@ -27,16 +32,15 @@ export class MainPage {
         const spanLogo = myCreateElement("span", [], logo);
         spanLogo.innerText = "TrilhaWeb";
 
-        const userContainer = myCreateElement("div", ["class", "userContainer"], header);
-        
+        const userContainer = myCreateElement("div", [["class", "userContainer"]], header);
         const usernameDiv = myCreateElement("div", [["class", "usernameDiv"]], userContainer);
         usernameDiv.innerText = username;
 
-        const logout = myCreateElement("div", [["class", "logout"]], header);
+        const logout = myCreateElement("div", [["class", "logout"]], userContainer);
         addIcon(logout, "fa-solid fa-right-from-bracket");
         logout.addEventListener("click", () => {
-            this.hide();
             this.destroy();
+            if (this.actualGame) this.actualGame.forsake();
             new LoginPage();
         });
 
@@ -44,14 +48,39 @@ export class MainPage {
         const extraContainer = myCreateElement("div", [["class", "extraContainer"], ["style", "display: none;"]], main);
 
         const board = myCreateElement("div", [["class", "board"]], gameContainer);
+        this.board = board
 
         this.startGame = myCreateElement("div", [["class", "startGame"]], board);
         // addIcon(this.startGame, "fa-solid fa-play");
         this.startGame.innerText = 'Start Game';
 
+        const leaderboardObj = new LeaderBoard(extraContainer);
+        this.leaderboardObj = leaderboardObj;
         this.startGame.addEventListener("click", () => {
             this.startGame.style.display = 'none';
-            this.actualGame = new Board(this, this.size, this.actualPlayer, this.IALevel, this.leaderboardObj);
+            if (this.config.PvP) {
+               
+                fetch(`http://${SERVER_URL}:8008/join`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({group: 146, nick: username, password: password, size: this.config.size})
+                })
+                .then(response => {
+                    if (response.ok) {
+                        response.json()
+                        .then(data => {     
+                            this.actualGame = new Board(this, username, password, data.game, this.config.size);
+                        })
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+                
+            } else
+                this.actualGame = new AIBoard(this, this.config, leaderboardObj);
         });
 
         const gameContainerFooter = myCreateElement("footer", [], gameContainer);
@@ -60,43 +89,100 @@ export class MainPage {
         const configurationButton = myCreateElement("div", [["class", "button"]], buttonsgameContainer);
         addIcon(configurationButton, "fa-solid fa-gear");
 
-        const configPopup = new ConfigPopup(this, board);
+        const configPopup = new ConfigPopup(this.config, board);
         configurationButton.addEventListener("click", configPopup.toggle);
 
-        const leaderboardObj = new LeaderBoard(extraContainer);
         const leaderButton = myCreateElement("div", [["class", "button"]], buttonsgameContainer);
         addIcon(leaderButton, "fa-solid fa-trophy");
         leaderButton.addEventListener("click", () => {
-            if (this.actualExtra == "leaderboard") {
+            if (actualExtra == "leaderboard") {
                 extraContainer.innerHTML = "";
                 extraContainer.style.display = 'none';
-                this.actualExtra = undefined;
+                actualExtra = undefined;
             } else {
-                this.actualExtra = "leaderboard";
+                actualExtra = "leaderboard";
                 extraContainer.innerHTML = "";
                 extraContainer.style.display = 'flex';
                 
                 const header = myCreateElement("header", [], extraContainer);
-                header.innerText = "Leaderboard";
+                header.innerText = "Leaderboard AI";
                 
-                const main = myCreateElement("main", [["style", "overflowY: 'none';"]], extraContainer)
+                const main = myCreateElement("main", [["style", "overflowY: 'none';"]], extraContainer);
                 
-                for (let i = 0; i < leaderboardObj.array.length; i++) {
-                    const score = myCreateElement("div", [["class", "score"]], main);
-                    score.innerText = `${i+1}. ${leaderboardObj.array[i][1]} : ${leaderboardObj.array[i][0]}`
+                if (leaderboardObj.ranking[this.config.size] !== undefined) {
+                    for (let i = 0; i < leaderboardObj.ranking[this.config.size].length; i++) {
+                        const score = myCreateElement("div", [["class", "score"]], main);
+                        score.innerText = `${i+1}. ${leaderboardObj.ranking[this.config.size][i][1]} : ${leaderboardObj.ranking[this.config.size][i][0]}`
+                    }
                 }
+
+                const footer = myCreateElement("footer", [], extraContainer);
+                var buttons = [
+                    myCreateElement("div", [["class", "button"]], footer),
+                    myCreateElement("div", [["class", "button"]], footer)
+                ];
+                buttons[0].innerText = "PvP";
+                buttons[1].innerText = "AI";
+                for (let btn of buttons) {
+                    btn.addEventListener("click", () => {
+                        while (main.lastElementChild) {
+                            main.removeChild(main.lastElementChild);
+                        }
+                        header.innerText = `Leaderboard ${btn.innerText}`;
+                        if (btn.innerText == "PvP") {
+                            
+                            fetch(`http://${SERVER_URL}:8008/ranking`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-type': 'application/json'
+                                },
+                                body: JSON.stringify({group: 146, size: this.config.size})
+                            })
+                            .then(response => {
+                                if (response.ok) {
+                                    response.json()
+                                    .then(data => {
+                                        for (let i = 0; i < data.ranking.length; i++) {
+                                            const usr = data.ranking[i]
+                                            const score = myCreateElement("div", [["class", "score"]], main);
+                                            score.innerText = `${i+1}. ${usr.nick} : ${usr.victories}-${usr.games}`;
+                                        }
+                                    })
+                                } else {
+                                    response.json()
+                                    .then(data => {     
+                                        console.log(data.error);
+                                        score.innerText = "";
+                                    })
+                                }
+                            })
+                            
+
+
+
+                        } else {
+                            if (leaderboardObj.ranking[this.config.size] !== undefined) {
+                                for (let i = 0; i < leaderboardObj.ranking.length; i++) {
+                                    const score = myCreateElement("div", [["class", "score"]], main);
+                                    score.innerText = `${i+1}. ${leaderboardObj.ranking[i][1]} : ${leaderboardObj.ranking[i][0]}`
+                                }
+                            }
+                        }
+                    });
+                }
+                
             }
         });
 
         const rulesButton = myCreateElement("div", [["class", "button"]], buttonsgameContainer);
         addIcon(rulesButton, "fa-solid fa-book")
         rulesButton.addEventListener("click", () => {
-            if (this.actualExtra == "rules") {
+            if (actualExtra == "rules") {
                 extraContainer.innerHTML = "";
                 extraContainer.style.display = 'none';
-                this.actualExtra = undefined;
+                actualExtra = undefined;
             } else {
-                this.actualExtra = "rules";
+                actualExtra = "rules";
                 extraContainer.innerHTML = "";
                 extraContainer.style.display = 'flex';
                 
@@ -149,7 +235,8 @@ export class MainPage {
 
         // Nullify properties to help with garbage collection
         this.container = null;
-        this.trilhaGame = null;
-        this.actualExtra = null;
+        this.config = null;
     }
+
+
 }

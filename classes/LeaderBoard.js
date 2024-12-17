@@ -1,23 +1,34 @@
 export class LeaderBoard {
     constructor() {
-        this.array = [];
+        if (typeof(Storage) !== 'undefined') {
+            this.ranking = JSON.parse(localStorage.getItem('leaderboardArray'));
+            if (this.ranking == null) this.ranking = {};
+        }
+        
     }
 
-    addLeader(points, user) {
+    addLeader(user, size, points) {
         const newLeader = [points, user];
-
-        let inserted = false;
-        for (let i = 0; i < this.array.length; i++) {
-            if (points > this.array[i][0]) {
-                this.array.splice(i, 0, newLeader);
-                inserted = true;
-                break;
+        if (this.ranking[size] === undefined)
+            this.ranking[size] = [newLeader];
+        else {
+            let inserted = false;
+            for (let i = 0; i < this.ranking[size].length; i++) {
+                if (points > this.ranking[size][i][0]) {
+                    this.ranking[size].splice(i, 0, newLeader);
+                    inserted = true;
+                    break;
+                }
+            }
+    
+            if (!inserted) {
+                this.ranking[size].push(newLeader);
             }
         }
 
-        if (!inserted) {
-            this.array.push(newLeader);
-        }
+
+        if (typeof(Storage) !== 'undefined')
+            localStorage.setItem('leaderboardArray', JSON.stringify(this.ranking));
         
     }
 }

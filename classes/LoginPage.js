@@ -1,5 +1,6 @@
 import { myCreateElement } from '../utils.js';
 import { MainPage } from './MainPage.js';
+import SERVER_URL from "../config.js";
 
 export class LoginPage {
     constructor() {
@@ -14,7 +15,6 @@ export class LoginPage {
         
         const buttons = {
             "Login": document.createElement("button"),
-            "Register": document.createElement("button")
         }
 
         const buttonsFunctions = {
@@ -29,6 +29,7 @@ export class LoginPage {
                 const form = myCreateElement("form", [], this.loginForm)
                 myCreateElement("input", [["type", "text"], ["placeholder", "Username"], ["id", "username"]], form);
                 myCreateElement("input", [["type", "password"], ["placeholder", "Password"], ["id", "password"]], form);
+                const errorP = myCreateElement("p", [["class", "error"]], form);
 
                 const showPasswordContainer = myCreateElement("div", [["class", "showPasswordContainer"]], form);
                 
@@ -49,11 +50,9 @@ export class LoginPage {
                 loginButton.innerText = "Login";
                 loginButton.addEventListener("click", (e) => {
                     e.preventDefault();
-                    this.handleLogin();
+                    this.handleLogin(errorP);
                 })
-                
-            }, 
-            "Register": () => {},
+            }
         }
         
         for (let buttonIndex in buttons) {
@@ -65,30 +64,42 @@ export class LoginPage {
 
     };
 
-    handleLogin() {
+    handleLogin(errorP) {
         const username = document.getElementById("username").value;
         const password = document.getElementById("password").value;
 
+        
         // Basic frontend validation
         if (!username || !password) {
-            alert("Please enter both username and password.");
+            errorP.style.display = 'block';
+            errorP.innerText = "Please enter both username and password.";
             return;
         }
 
-        // Simulate an authentication process
-        if (true) { // Change these to test values
-            this.loginForm.remove()
-            this.transitionToMainPage(username);
-        } else {
-            alert("Invalid username or password.");
-        }
+        //twserver.alunos.dcc.fc.up.pt
+        fetch(`http://${SERVER_URL}:8008/register`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({nick: username, password: password})
+        })
+        .then(response => {
+            if (response.ok) {
+                this.loginForm.remove()
+                this.transitionToMainPage(username, password);
+            } else {
+                errorP.innerText = "Credênciais errados!";
+                errorP.style.display = 'block';
+            }
+        })
     }
 
     // Transitions to the main page on successful login
-    transitionToMainPage(username) {
+    transitionToMainPage(username, password) {
         this.container.classList.add("hidden");
         this.destroy();
-        new MainPage(username);
+        new MainPage(username, password);
     }
 
     destroy() {
