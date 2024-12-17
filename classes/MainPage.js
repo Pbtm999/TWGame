@@ -162,9 +162,9 @@ export class MainPage {
 
                         } else {
                             if (leaderboardObj.ranking[this.config.size] !== undefined) {
-                                for (let i = 0; i < leaderboardObj.ranking.length; i++) {
+                                for (let i = 0; i < leaderboardObj.ranking[this.config.size].length; i++) {
                                     const score = myCreateElement("div", [["class", "score"]], main);
-                                    score.innerText = `${i+1}. ${leaderboardObj.ranking[i][1]} : ${leaderboardObj.ranking[i][0]}`
+                                    score.innerText = `${i+1}. ${leaderboardObj.ranking[this.config.size][i][1]} : ${leaderboardObj.ranking[this.config.size][i][0]}`
                                 }
                             }
                         }

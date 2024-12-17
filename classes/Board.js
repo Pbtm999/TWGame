@@ -101,6 +101,8 @@ export class Board {
                                             }
                                         }
                                     })
+                                } else {
+                                    playSound("success");
                                 }
                             })
                         }
@@ -190,6 +192,42 @@ export class Board {
 
         this.queueWrapper = myCreateElement("div", [["class", "queueWrapper"]], this.middle);
         myCreateElement("div", [["class", "queueText"]], this.queueWrapper).innerText = "In Queue...";
+        myCreateElement("canvas", [["id", "loadingCircle"], ["width", "150"], ["height", "150"]], this.queueWrapper)
+
+        const canvas = document.getElementById('loadingCircle');
+        const ctx = canvas.getContext('2d');
+
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = 50;
+        const lineWidth = 8;
+
+        let startAngle = 0;
+        const endAngle = Math.PI * 1.5; // 270 degrees
+
+        function drawLoadingCircle() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.lineWidth = lineWidth;
+            ctx.strokeStyle = '#ddd';
+            ctx.stroke();
+
+            // Draw the animated arc
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, startAngle, startAngle + endAngle);
+            ctx.lineWidth = lineWidth;
+            ctx.strokeStyle = '#000';
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            startAngle += 0.05;
+            requestAnimationFrame(drawLoadingCircle);
+        }
+
+        drawLoadingCircle();
+
         const cancelQueue = myCreateElement("div", [["class", "queueCancel"]], this.queueWrapper)
         cancelQueue.innerText = "Cancel Queue";
 

@@ -40,6 +40,9 @@ const remove = (gameId, res) => {
     if(pos > -1)
         lobbys[gameId].responses.splice(pos,1);
 
+    if (queue[lobbys[gameId].queue] !== undefined)
+        queue[lobbys[gameId].queue] = null;
+
     if (lobbys[gameId].responses.lenght == 0) 
         lobbys[gameId] = null;
 }

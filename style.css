@@ -556,3 +556,7 @@ body {
 .queueCancel:hover {
     font-size: 21px;
 }
+
+canvas {
+    display: block;
+}
