@@ -235,7 +235,7 @@ module.exports.leave = async (nick, password, game, sendResponse) => {
         const isValid = await users.verifyCredentials(nick, password);
 
         if (!isValid) {
-            sendResponse(403, {error: 'Invalid credentials'})
+            sendResponse(401, {error: 'Invalid credentials'})
         }
 
         if (lobbys[game] === undefined)
@@ -282,7 +282,7 @@ module.exports.notify = async (nick, password, game, cell, sendResponse) => {
         const isValid = await users.verifyCredentials(nick, password);
 
         if (!isValid) {
-            sendResponse(403, {error: 'Invalid credentials'})
+            sendResponse(401, {error: 'Invalid credentials'})
             return;
         }
        

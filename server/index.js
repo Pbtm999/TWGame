@@ -1,4 +1,4 @@
-let PORT = 8008;
+let PORT = 8113;
 
 const http = require('http');
 const url = require('url');
@@ -36,7 +36,7 @@ const doGet = (pathname, query, req, res) => {
             game.addUpdater(gameId, req, res);
             break;
         default:
-            res.writeHead(400, headers.plain);
+            res.writeHead(404, headers.plain);
             res.end();
             break;
     }
@@ -109,7 +109,7 @@ http.createServer(function(request, response) {
             doPost(pathname, request, response);
             break
         default:
-            response.writeHead(400, headers.plain);
+            response.writeHead(404, headers.plain);
             response.end(JSON.stringify({ error: "Bad request" }));
             break;
     }
