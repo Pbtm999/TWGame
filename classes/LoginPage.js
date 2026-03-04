@@ -5,10 +5,13 @@ import SERVER_URL from "../config.js";
 export class LoginPage {
     constructor() {
         // Creates the div element who represents the login container
-        this.container = myCreateElement("div", [["id", "loginContainer"], ["class", "loginContainer up"]], "body");
+        this.container = myCreateElement("div", [["id", "loginContainer"], ["class", "container login"]], "body");
         
         // Logo
         myCreateElement("img", [["class", "logo"], ["src", "img/TWLogo.png"]], this.container);
+
+        //Title
+        myCreateElement("h1", [["class", "title"]], this.container).innerText = "Jogo da TrilhaWeb";
 
         // Buttons
         this.buttonsContainer = myCreateElement("div", [["class", "buttons"]], this.container);
@@ -21,9 +24,9 @@ export class LoginPage {
             "Login": async () => {
                 await this.hide();
 
-                this.loginForm = myCreateElement("div", [["class", "loginForm"]], "body");
+                this.loginForm = myCreateElement("div", [["class", "container login form"]], "body");
                 
-                const header = myCreateElement("header", [], this.loginForm);
+                const header = myCreateElement("header", [["class", "title"]], this.loginForm);
                 header.innerText = "Login";
 
                 const form = myCreateElement("form", [], this.loginForm)
@@ -31,7 +34,7 @@ export class LoginPage {
                 myCreateElement("input", [["type", "password"], ["placeholder", "Password"], ["id", "password"]], form);
                 const errorP = myCreateElement("p", [["class", "error"]], form);
 
-                const showPasswordContainer = myCreateElement("div", [["class", "showPasswordContainer"]], form);
+                const showPasswordContainer = myCreateElement("div", [["class", "container showpass"]], form);
                 
                 const showPassword = myCreateElement("input", [["name", "showPassword"], ["type", "checkbox"]], showPasswordContainer);
                 showPassword.addEventListener('change', () => {

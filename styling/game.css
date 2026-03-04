@@ -1,0 +1,339 @@
+.container.mainpage {
+    flex-direction: column;
+    height: 100%;
+}
+
+.container.mainpage header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    padding: 10px;
+    border-bottom: 2px solid var(--watermelon);
+    background-color: rgba(0, 0, 0, 0.735);
+}
+
+.container.mainpage header .logo {
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+    background-color: var(--pumpkin-spice);
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.container.mainpage header .logo img {
+    width: 30px;
+}
+
+.container.mainpage header .container.user {
+    width: fit-content;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.container.mainpage header .container.user .logout {
+    cursor: pointer;
+}
+
+.container.mainpage main {
+    width: 100vw;
+    height: fit-content;
+    display:  flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 50px;
+    flex: 1;
+}
+
+.container.mainpage main .container {
+    height: 600px;
+    background-color: var(--graphite);
+    color: white;
+    margin: 0;
+    border: 2px solid var(--pumpkin-spice);
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #00000081;
+}
+
+.container.mainpage main .container.game {
+    width: 950px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container.mainpage main .container.game .board {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex: 1;
+    position: relative;
+}
+
+.container.mainpage main .container.game .label {
+    cursor: pointer;
+}
+
+.container.mainpage main .container.game footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: fit-content;
+    padding: 10px 15px;
+    justify-content: end;
+    border-top: 2px solid var(--pumpkin-spice);
+    background-color: rgba(0, 0, 0, 0.735)  ;
+}
+
+.container.mainpage main .container.game footer .button {
+    cursor: pointer;
+}
+
+.container.container footer {
+    color: white;
+    text-shadow: 1px 1px 1px #000;
+    padding: 10px;
+    height: fit-content;
+}
+
+.container.extra {
+    flex-direction: column;
+    width: 400px;
+}
+
+.container.extra header {
+    width: 100%;
+    border-bottom: 2px solid var(--pumpkin-spice);
+}
+
+.container.extra main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 15px;
+}
+
+.container.extra footer {
+    display: flex;
+    flex-direction: row;
+    border-top: 2px solid var(--pumpkin-spice);
+}
+
+.container.extra footer .button:nth-child(even) {
+    border-left: 1px solid var(--pumpkin-spice);
+}
+
+.container.extra footer .button {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+}
+
+.queueWrapper {
+    text-shadow: 1px 1px 1px #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid var(--pumpkin-spice);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 2px 2px 2px var(--pumpkin-spice);
+}
+
+.queueCancel {
+    cursor: pointer;
+}
+
+.empty {
+    background-color: #fff;
+}
+
+.redPiece, .cell.red {
+    background-color: red;
+}
+
+.bluePiece, .cell.blue {
+    background-color: blue;
+}
+
+.bluePiece, .redPiece {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 1px solid #000;
+}
+
+.container.mainpage main .container.game .board .middle {
+    flex: 0.6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container.mainpage main .container.game .board .middle .forsake {
+    cursor: pointer;
+    border: 2px solid var(--pumpkin-spice);
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.735);
+}
+
+.container.mainpage main .container.game .board .pieceContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: center;
+    align-items: center ;
+    flex: 0.3;
+}
+
+.container.mainpage main .container.game .board .middle .game {
+    width: fit-content;
+    height: fit-content;
+    display: grid;
+}
+
+.cell {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.selected {
+    border: 1px solid gold;
+}
+
+.hrule {
+    width: 100%;
+    height: 5px;
+    background-color: #000;
+    margin: 7.5px 0;
+}
+
+.vrule {
+    width: 5px;
+    margin: 0 auto;
+    background-color: #000;
+}
+
+.emptySpace {
+    width: 100%;
+}
+
+.empty {
+    background-color: #fff;
+}
+
+.messageBox {
+    position: absolute;
+    top: 10%;
+    animation: fadeIn 1s forwards;
+    background-color: rgba(0, 0, 0, 0.735);
+    padding: 10px;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation for fading out the message */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.score {
+    font-weight: bold;
+    font-size: 30px;
+    margin: 0 auto;
+    text-shadow: 1px 1px 1px #000;
+}
+
+canvas {
+    display: block;
+}
+
+.container.mainpage main .container.game .board .popup {
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background-color: var(--graphite);
+    border: 2px solid var(--pumpkin-spice);
+    box-shadow: 1px 1px 1px #00000081;
+    border-radius: 5px;
+}
+
+.container.mainpage main .container.game .board .popupHeader {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.735);
+    border-bottom: 2px solid var(--pumpkin-spice);
+    text-align: center;
+}
+
+.container.mainpage main .container.game .board form {
+    padding: 5px;
+    text-shadow: 1px 1px 1px #000;
+    font-weight: bold;
+}
+
+.selector {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: 5%;
+    padding: 2px;
+    gap: 10px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.selector .valueContainer {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    gap: 5px;
+    cursor: default;
+}
+
+.selector .valueContainer .arrow:hover {
+    cursor: pointer;
+}
+
+.selector .valueContainer .value {
+    width: fit-content;
+    padding: 0 2px;
+    text-align: center;
+}

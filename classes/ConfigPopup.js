@@ -7,7 +7,7 @@ export class ConfigPopup {
         this.popup = popup
 
         // Create and append the header
-        const header = myCreateElement("header", [], popup);
+        const header = myCreateElement("header", [["class", "popupHeader"]], popup);
         header.innerText = "Settings";
 
         // Create the form

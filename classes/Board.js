@@ -186,9 +186,9 @@ export class Board {
         this.gameId = gameId;
 
 
-        this.redPiecesContainer = myCreateElement("div", [["class", "redPiecesContainer"]], mainPage.board);
+        this.redPiecesContainer = myCreateElement("div", [["class", "pieceContainer"]], mainPage.board);
         this.middle = myCreateElement("div", [["class", "middle"]], mainPage.board);
-        this.bluePiecesContainer = myCreateElement("div", [["class", "bluePiecesContainer"]], mainPage.board);
+        this.bluePiecesContainer = myCreateElement("div", [["class", "pieceContainer"]], mainPage.board);
 
         this.queueWrapper = myCreateElement("div", [["class", "queueWrapper"]], this.middle);
         myCreateElement("div", [["class", "queueText"]], this.queueWrapper).innerText = "In Queue...";
@@ -218,7 +218,7 @@ export class Board {
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius, startAngle, startAngle + endAngle);
             ctx.lineWidth = lineWidth;
-            ctx.strokeStyle = '#000';
+            ctx.strokeStyle = '#ed7d3aff'
             ctx.lineCap = 'round';
             ctx.stroke();
 

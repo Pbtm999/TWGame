@@ -17,7 +17,7 @@ export class MainPage {
             PvP: true
         }
         
-        this.container = myCreateElement("div", [["class", "mainPageContainer hidden"], ["style", "display: none;"]], "body");
+        this.container = myCreateElement("div", [["class", "mainpage container hidden"], ["style", "display: none;"]], "body");
         this.username = username;
         
         const header = myCreateElement("header", [], this.container);
@@ -32,25 +32,24 @@ export class MainPage {
         const spanLogo = myCreateElement("span", [], logo);
         spanLogo.innerText = "TrilhaWeb";
 
-        const userContainer = myCreateElement("div", [["class", "userContainer"]], header);
-        const usernameDiv = myCreateElement("div", [["class", "usernameDiv"]], userContainer);
+        const userContainer = myCreateElement("div", [["class", "user container"]], header);
+        const usernameDiv = myCreateElement("snap", [["class", "username"]], userContainer);
         usernameDiv.innerText = username;
 
-        const logout = myCreateElement("div", [["class", "logout"]], userContainer);
-        addIcon(logout, "fa-solid fa-right-from-bracket");
-        logout.addEventListener("click", () => {
+        const icon = addIcon(userContainer, "fa-solid fa-right-from-bracket logout");
+        icon.addEventListener("click", () => {
             this.destroy();
             if (this.actualGame) this.actualGame.forsake();
             new LoginPage();
         });
 
-        const gameContainer = myCreateElement("div", [["class", "gameContainer"]], main);
-        const extraContainer = myCreateElement("div", [["class", "extraContainer"], ["style", "display: none;"]], main);
+        const gameContainer = myCreateElement("div", [["class", "game container"]], main);
+        const extraContainer = myCreateElement("div", [["class", "extra container"], ["style", "display: none;"]], main);
 
         const board = myCreateElement("div", [["class", "board"]], gameContainer);
         this.board = board
 
-        this.startGame = myCreateElement("div", [["class", "startGame"]], board);
+        this.startGame = myCreateElement("div", [["class", "label"]], board);
         // addIcon(this.startGame, "fa-solid fa-play");
         this.startGame.innerText = 'Start Game';
 
@@ -84,15 +83,14 @@ export class MainPage {
         });
 
         const gameContainerFooter = myCreateElement("footer", [], gameContainer);
-        const buttonsgameContainer = myCreateElement("div", [["class", "buttonsFooter"]], gameContainerFooter);
 
-        const configurationButton = myCreateElement("div", [["class", "button"]], buttonsgameContainer);
+        const configurationButton = myCreateElement("div", [["class", "button"]], gameContainerFooter);
         addIcon(configurationButton, "fa-solid fa-gear");
 
         const configPopup = new ConfigPopup(this.config, board);
         configurationButton.addEventListener("click", configPopup.toggle);
 
-        const leaderButton = myCreateElement("div", [["class", "button"]], buttonsgameContainer);
+        const leaderButton = myCreateElement("div", [["class", "button"]], gameContainerFooter);
         addIcon(leaderButton, "fa-solid fa-trophy");
         leaderButton.addEventListener("click", () => {
             if (actualExtra == "leaderboard") {
@@ -174,7 +172,7 @@ export class MainPage {
             }
         });
 
-        const rulesButton = myCreateElement("div", [["class", "button"]], buttonsgameContainer);
+        const rulesButton = myCreateElement("div", [["class", "button"]], gameContainerFooter);
         addIcon(rulesButton, "fa-solid fa-book")
         rulesButton.addEventListener("click", () => {
             if (actualExtra == "rules") {
@@ -189,7 +187,7 @@ export class MainPage {
                 const header = myCreateElement("header", [], extraContainer);
                 header.innerText = "Rules / Instructions";
                 
-                const main = myCreateElement("main", [["style", "overflowY: scroll;"]], extraContainer);
+                const main = myCreateElement("main", [["style", "overflowY: auto;"]], extraContainer);
 
                 const gameRules = [
                     "- Trilha é um jogo onde 2 jogadores tentam fazer com que o outro tenha só 2 peças restantes. O primeiro a conseguir isso, vence. É possível também que o jogo termine em empate. Para o jogo terminar empatado, basta que não existam mais jogadas válidas, ou então, se ambos os jogadores tiverem apenas 3 peças restantes, e em 10 jogadas nenhum deles conseguir eliminar uma peça inimiga, o jogo termina;",

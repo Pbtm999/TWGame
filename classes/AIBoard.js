@@ -18,9 +18,9 @@ export class AIBoard {
         this.validationVectors = [[1,7],  [-1,1], [-1,1], [-1,1], [1,-1], [1,-1], [1,-1], [-7,-1]];
         this.moinhoVectors = [[[7,6],[1,2]], [[-1,1]], [[-1,-2], [1,2]], [[-1,1]], [[-1,-2], [1,2]], [[1,-1]], [[-1,-2], [1,-6]], [[-7,-1]]];
 
-        this.redPiecesContainer = myCreateElement("div", [["class", "redPiecesContainer"]], mainPage.board)
+        this.redPiecesContainer = myCreateElement("div", [["class", "pieceContainer"]], mainPage.board)
         this.middle = myCreateElement("div", [["class", "middle"]], mainPage.board)
-        this.bluePiecesContainer = myCreateElement("div", [["class", "bluePiecesContainer"]], mainPage.board)
+        this.bluePiecesContainer = myCreateElement("div", [["class", "pieceContainer"]], mainPage.board)
 
         for (let i = 0; i < size; i++) {
             this.state[i] = new Array(8).fill('empty'); // Initialize each square state

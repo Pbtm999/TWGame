@@ -1,0 +1,98 @@
+.container.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 24px;
+    height: 100vh;
+}
+
+.container.login .logo {
+    width: 300px;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.container.login .title {
+    color: var(--emerald);
+    margin: 0 auto;
+    text-align: center;
+    text-shadow: 1px 2px 2px var(--graphite);
+    margin-bottom: 20px;
+}
+
+.container.login .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.container.login.form header {
+    margin-bottom: 16px;
+    color: var(--pumpkin-spice);
+    font-size: 28px;
+}
+
+.container.login.form form {
+    background-color: var(--graphite);
+    padding: 16px;
+    border-radius: 5px;
+    border: 1px solid var(--pumpkin-spice);
+}
+
+.container.login.form form input[type="text"],
+.container.login.form form input[type="password"] {
+    padding: 8px;
+    border-radius: 24px;
+    background-color: var(--graphite);
+    color: var(--emerald);
+    font-weight: bold;
+    text-shadow: 1px 1px 1px var(--graphite);
+    border: 1px solid var(--pumpkin-spice);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.container.login.form form input[type="text"]::placeholder,
+.container.login.form form input[type="password"]::placeholder {
+    color: whitesmoke;
+}
+
+.container.login.form button {
+    margin: 0 auto;
+}
+
+.container.login.form form .showpass {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.container.login.form form .showpass input[type="checkbox"] {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--emerald);
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.container.login.form form .showpass input[type="checkbox"]:checked {
+    background-color: var(--pumpkin-spice);
+    border: 1px solid var(--emerald);
+}
+
+.container.login.form form .showpass label {
+    color: var(--pumpkin-spice);
+    text-shadow: 1px 1px 1px var(--graphite);
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+}

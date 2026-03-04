@@ -44,6 +44,7 @@ export const addIcon = (appendTo, icon) => {
 
     // Appends the elment to a specified container element
     myAppendChild(appendTo, iconElement)
+    return iconElement;
 }
 
 export class Selector {

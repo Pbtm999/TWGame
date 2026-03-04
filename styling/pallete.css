@@ -1,0 +1,9 @@
+:root {
+    --graphite: #363537ff;
+    --emerald: #0cce6bff;
+    --lemon-lime: #dced31ff;
+    --watermelon: #ef2d56ff;
+    --pumpkin-spice: #ed7d3aff;
+    --gradient-radial: radial-gradient(#363537ff, #0cce6bff, #dced31ff, #ef2d56ff, #ed7d3aff);
+    --gradient-top: linear-gradient(180deg,rgba(54, 53, 55, 1) 10%, rgba(237, 125, 58, 1) 100%);;
+}

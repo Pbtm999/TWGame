@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+      -ms-overflow-style: none;  /* Internet Explorer 10+ */
+      scrollbar-width: none; 
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+::selection {
+    background: transparent;
+}
+
+::-moz-selection {
+    background: transparent; /* Firefox */
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: var(--graphite);
+  background: var(--gradient-top);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+}
+
+h1, .title {
+    font-family: 'Fredoka One', cursive;
+    color: var(--watermelon);
+}
+
+.container {
+    margin: 0 auto;
+    width: fit-content;
+    height: fit-content;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+button {
+
+  background-color: var(--graphite);
+
+  border: 1px solid var(--pumpkin-spice);
+  border-radius: 8px;
+  box-shadow: var(--pumpkin-spice) 0 1px 2px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Amazon Ember",sans-serif;
+  font-size: 13px;
+  line-height: 29px;
+  padding: 0 10px 0 11px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  width: 100px;
+}
+
+button:hover {
+  background-color: var(--pumpkin-spice);
+}
+
+button:focus {
+  border-color: #008296;
+  box-shadow: rgba(213, 217, 217, .5) 0 2px 5px 0;
+  outline: 0;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid var(--emerald);
+    box-shadow: 0 0 8px rgba(12, 206, 107, 0.5);
+}
